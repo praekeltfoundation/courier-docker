@@ -13,6 +13,7 @@ before_install:
 
 before_script:
   - LATEST_TAG=$(curl -s https://api.github.com/repos/$REPO/tags  | jq -r '.[0].name')
+  - LATEST_TAG="${LATEST_TAG//[v]}"
   - VERSION=${VERSION:-$LATEST_TAG}
 
 install:
