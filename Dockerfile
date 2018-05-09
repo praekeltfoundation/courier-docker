@@ -8,14 +8,14 @@ RUN apt-get update && \
 ARG COURIER_REPO
 ENV COURIER_REPO=${COURIER_REPO:-nyaruka/courier
 ARG COURIER_VERSION
-ENV COURIER_VERSION=${COURIER_VERSION:-1.2.84}
+ENV COURIER_VERSION=${COURIER_VERSION:-v1.2.84}
 
 RUN set -ex; \
   apt-get update; \
   apt-get install -y --no-install-recommends wget; \
   rm -rf /var/lib/apt/lists/*; \
   \
-  wget -O courier.tar.gz "https://github.com/$COURIER_REPO/releases/download/v${COURIER_VERSION}/courier_${COURIER_VERSION}_linux_amd64.tar.gz"; \
+  wget -O courier.tar.gz "https://github.com/$COURIER_REPO/releases/download/${COURIER_VERSION}/courier_${COURIER_VERSION}_linux_amd64.tar.gz"; \
   mkdir /usr/local/src/courier; \
   tar -xzC /usr/local/src/courier -f courier.tar.gz; \
   \
