@@ -27,5 +27,8 @@ RUN set -ex; \
 
 EXPOSE 8080
 
+RUN useradd courier_user
+USER courier_user
+
 ENTRYPOINT []
 CMD ["courier"]
