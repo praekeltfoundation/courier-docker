@@ -1,0 +1,41 @@
+services:
+  - docker
+
+env:
+  - REGISTRY_USER=rapidproautomation
+  - IMAGE="praekeltfoundation/courier" VERSION="" REPO="nyaruka/courier"
+  - secure: TBwtks2Y5e4dSbV6FTnA5T3I178CC13K8mxmI2qk+eQ5kYRHOp4EqWVZF/jypPIoAy/YbO0CMB4Lhz3hDfilDE7pku6egGQT/mCT2UBCUGs+emIIWymBAbcx9uYnjwSRld5mrZ9lO59URNK6LIZd03IWi+urScRSI1k29qhN1PASZuUgXVpTNAVZNykXdM2MK6HxmyqRMpASMHhPATQnOvAspPRUgCkhxE5sG2Dr2baMqvR+019Wemj8JdZIIauNcgGEyCVXoDC9TAG0/abKxYpZvWJZ5UBboi3TMWgnKdlgBgdukh/pxWrtXxNKD6KpKR6oUuqqX7drbM78n4L74j4ytOFIv+JUEYTJb+mbSwGLaTdX2lnlop6y8E4FFjPp1JKtN43SdRS7XGB45MJoiyzeYFUPzdCED+p4rQQ4IKwxnF5IKYx5C/WXfY6bqaQR7PDaij8KbKSdD3R42NYjLdEFi1S5aLHvJVkmFQy/uxjpZ/Q2u4wgusOlixkBicAXHm3EuG61dhR0QuLUOEdwtR/thxWJxyK89T//8zWPyyrZv2WTDMOEXnAp8Av7Og4Cf816W6vjGE6GOfV/iWbeQ7L7jy9PvoDnaLiiDJEKhfUhOO+jrOqPyzhgkcfRXROe+y5CPAU5XvaQYaT5lsQtcRT9YX2PKkUuiER5phRm8DI=
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -qy -o Dpkg::Options::="--force-confold" docker-ce coreutils
+
+before_script:
+  - LATEST_TAG=$(curl -s https://api.github.com/repos/$REPO/tags  | jq -r '.[0].name')
+  - VERSION=${VERSION:-$LATEST_TAG}
+
+install:
+  - echo "preventing default pip install here"
+
+script:
+  - docker pull debian:stretch-slim
+  - docker pull "$IMAGE"
+  - >
+    docker build --pull --cache-from "$IMAGE" \
+      --tag "$IMAGE" \
+      --build-arg COURIER_VERSION=$VERSION \
+      --build-arg COURIER_REPO=$REPO \
+after_script:
+  - docker logs rapidpro
+  - docker images
+
+before_deploy:
+  - pip install docker-ci-deploy==0.3.0
+  - echo -n $REGISTRY_PASS | docker login -u "$REGISTRY_USER" --password-stdin
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: dcd --tag-version "$VERSION" --tag-semver --tag-latest "$IMAGE"
+  on:
+    branch: master
