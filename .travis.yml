@@ -25,6 +25,8 @@ script:
       --tag "$IMAGE" \
       --build-arg COURIER_VERSION=$VERSION \
       --build-arg COURIER_REPO=$REPO \
+      .
+
 after_script:
   - docker images
 
