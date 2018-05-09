@@ -26,7 +26,6 @@ script:
       --build-arg COURIER_VERSION=$VERSION \
       --build-arg COURIER_REPO=$REPO \
 after_script:
-  - docker logs rapidpro
   - docker images
 
 before_deploy:
