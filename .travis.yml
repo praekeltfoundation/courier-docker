@@ -20,7 +20,6 @@ install:
 
 script:
   - docker pull debian:stretch-slim
-  - docker pull "$IMAGE"
   - >
     docker build --pull --cache-from "$IMAGE" \
       --tag "$IMAGE" \
