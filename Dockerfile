@@ -23,12 +23,13 @@ RUN set -ex; \
   mv /usr/local/src/courier/courier /usr/local/bin/; \
   rm -rf /usr/local/src/courier courier.tar.gz; \
   \
-  apt-get purge -y --auto-remove wget
+  apt-get purge -y --auto-remove wget;\
+  addgroup --system courier; \
+  adduser --system --ingroup courier courier
 
 EXPOSE 8080
 
-RUN useradd courier_user
-USER courier_user
+USER courier
 
 ENTRYPOINT []
 CMD ["courier"]
