@@ -14,8 +14,7 @@ before_script:
   - LATEST_TAG="${LATEST_TAG//[v]}"
   - VERSION=${VERSION:-$LATEST_TAG}
 
-install:
-  - echo "preventing default pip install here"
+install: []
 
 script:
   - docker pull debian:stretch-slim
