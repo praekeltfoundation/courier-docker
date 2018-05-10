@@ -19,13 +19,16 @@ before_script:
 install: []
 
 script:
+  - wget -O courier.tar.gz "https://github.com/$REPO/releases/download/v${VERSION}/courier_${VERSION}_linux_amd64.tar.gz"
+  - mkdir /usr/local/src/courier
+  - tar -xzC /usr/local/src/courier -f courier.tar.gz;
+  -
   - docker pull "$IMAGE" || true
   - >
     docker build --pull --cache-from "$IMAGE" \
       --tag "$IMAGE" \
-      --build-arg COURIER_VERSION=$VERSION \
-      --build-arg COURIER_REPO=$REPO \
       .
+  - rm -rf /usr/local/src/courier courier.tar.gz;
 
 after_script:
   - docker images
