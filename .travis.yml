@@ -20,6 +20,7 @@ install: []
 
 script:
   - wget -O courier.tar.gz "https://github.com/$REPO/releases/download/v${VERSION}/courier_${VERSION}_linux_amd64.tar.gz"
+  - mkdir courier
   - tar -xzC courier -f courier.tar.gz;
   - docker pull "$IMAGE" || true
   - >
