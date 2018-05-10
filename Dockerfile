@@ -4,7 +4,7 @@ RUN set -ex; \
     addgroup --system courier; \
     adduser --system --ingroup courier courier
 
-COPY /usr/local/src/courier/courier /usr/local/bin/
+COPY courier/courier /usr/local/bin/
 
 EXPOSE 8080
 
