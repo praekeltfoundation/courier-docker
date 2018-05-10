@@ -1,5 +1,9 @@
 FROM debian:stretch-slim
 
+RUN set -ex; \
+    addgroup --system courier; \
+    adduser --system --ingroup courier courier
+
 # Install ca-certificates so HTTPS works in general
 RUN apt-get update && \
   apt-get install -y --no-install-recommends ca-certificates && \
@@ -23,9 +27,7 @@ RUN set -ex; \
   mv /usr/local/src/courier/courier /usr/local/bin/; \
   rm -rf /usr/local/src/courier courier.tar.gz; \
   \
-  apt-get purge -y --auto-remove wget;\
-  addgroup --system courier; \
-  adduser --system --ingroup courier courier
+  apt-get purge -y --auto-remove wget
 
 EXPOSE 8080
 
