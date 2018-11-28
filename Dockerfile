@@ -10,7 +10,7 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 ARG COURIER_REPO
-ENV COURIER_REPO=${COURIER_REPO:-nyaruka/courier
+ENV COURIER_REPO=${COURIER_REPO:-nyaruka/courier}
 ARG COURIER_VERSION
 ENV COURIER_VERSION=${COURIER_VERSION:-1.2.84}
 
