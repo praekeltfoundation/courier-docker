@@ -19,7 +19,7 @@ RUN set -ex; \
   apt-get install -y --no-install-recommends wget; \
   rm -rf /var/lib/apt/lists/*; \
   \
-  wget --header "Authorization: Bearer $GITHUB_ACCESS_TOKEN" -O courier.tar.gz "https://github.com/$COURIER_REPO/releases/download/v${COURIER_VERSION}/courier_${COURIER_VERSION}_linux_amd64.tar.gz"; \
+  wget --header "Authorization: Bearer $GITHUB_ACCESS_TOKEN" -O courier.tar.gz "https://github.com/$COURIER_REPO/releases/download/${COURIER_VERSION}/courier_${COURIER_VERSION}_linux_amd64.tar.gz"; \
   mkdir /usr/local/src/courier; \
   tar -xzC /usr/local/src/courier -f courier.tar.gz; \
   \
