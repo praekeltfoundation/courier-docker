@@ -11,7 +11,7 @@ RUN mkdir courier
 RUN tar -xzC courier -f courier.tar.gz
 
 
-FROM debian:bullseye:slim
+FROM debian:bullseye-slim
 
 RUN set -ex; \
     addgroup --system courier; \
