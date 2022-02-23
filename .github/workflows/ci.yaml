@@ -42,7 +42,7 @@ jobs:
         run: |
           docker run --name courier --env-file docker.envfile --link postgis --link redis --publish 8080:8080 --detach courier
           timeout ${{env.GREP_TIMEOUT}} grep -m 1 'server listening on 8080' <(docker logs --follow mailroom 2>&1)
-          curl http://localhost:8090/ | grep -m 1 ${{matrix.COURIER_VERSION}}
+          curl http://localhost:8080/ | grep -m 1 ${{matrix.COURIER_VERSION}}
       - name: debug outputs
         if: always()
         run: |

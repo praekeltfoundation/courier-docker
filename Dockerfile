@@ -26,6 +26,7 @@ COPY --from=build courier/courier /usr/local/bin
 
 EXPOSE 8080
 
+RUN mkdir _storage && chown courier _storage
 USER courier
 
 ENTRYPOINT []
