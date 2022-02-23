@@ -1,0 +1,4 @@
+COURIER_ADDRESS=0.0.0.0
+COURIER_LOG_LEVEL=debug
+COURIER_DB=postgres://temba:temba@postgis/temba?sslmode=disable
+COURIER_REDIS=redis://redis:6379/0
