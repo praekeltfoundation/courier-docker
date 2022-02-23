@@ -6,7 +6,7 @@ ARG COURIER_VERSION
 ENV COURIER_VERSION=${COURIER_VERSION:-1.2.84}
 
 RUN apt update && apt install -y wget
-RUN wget -O courier.tar.gz "https://github.com/$COURIER_REPO/releases/download/v${COURIER_VERSION}/courier_${COURIER_VERSION}_linux_amd64.tar.gz"
+RUN wget -q -O courier.tar.gz "https://github.com/$COURIER_REPO/releases/download/v${COURIER_VERSION}/courier_${COURIER_VERSION}_linux_amd64.tar.gz"
 RUN mkdir courier
 RUN tar -xzC courier -f courier.tar.gz
 
